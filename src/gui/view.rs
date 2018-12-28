@@ -8,6 +8,7 @@ fn generate_emoji_view(search_results: Vec<String>) -> String {
     let mut result: String = String::new();
     for emoji in search_results {
         result.push_str(&emoji);
+        result.push_str("\n")
     }
     return result;
 }

@@ -9,11 +9,19 @@ pub struct EmojiBase {
 
 pub fn find_emojis(emojis: &EmojiBase, search_phrase: String) -> Vec<String> {
   let mut result : Vec<String> = Vec::new();
-
   if emojis.categories.contains_key(&search_phrase) {
     let category : &Vec<String> = emojis.categories.get(&search_phrase).expect("");
     for emoji in category {
       result.push(emoji.to_string());
+    }
+  } else {
+    let tags = &emojis.tags;
+    let lower_search_phrase = search_phrase.to_lowercase();
+    for tag in tags {
+      let tag_lower = tag.0.to_lowercase();
+      if tag_lower.contains(&lower_search_phrase) {
+        result.push(tag.1.to_string());
+      }
     }
   }
   return result;
