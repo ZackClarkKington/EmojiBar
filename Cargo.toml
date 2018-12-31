@@ -12,3 +12,9 @@ features = ["v3_10"]
 
 [dependencies.gio]
 version = "^0"
+
+[dependencies.pango]
+version = "^0"
+
+[dependencies.gdk]
+version = "^0"
