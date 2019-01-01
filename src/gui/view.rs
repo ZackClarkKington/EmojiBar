@@ -5,6 +5,12 @@ use gtk::{ApplicationWindow, Builder, Button, Entry, Grid, Label};
 use crate::app::EmojiBase;
 use crate::app::find_emojis;
 
+fn clear_grid(grid: &Grid){
+    while(grid.get_children().len() > 0){
+        grid.remove_column(0);
+    }
+}
+
 fn generate_emoji_view(search_results: Vec<String>, grid: &Grid){
     let mut index = 0;
     let mut row = 0;
@@ -37,6 +43,7 @@ pub fn build_window(application: &gtk::Application) {
     let search_button: Button = builder.get_object("search-btn").expect("Couldn't get search-button");
     let search_box : Entry = builder.get_object("search-box").expect("Couldn't get search-box");
     let result_grid : Grid = builder.get_object("results-grid").expect("Couldn't get results-grid");
+
     window.set_application(application);
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
@@ -46,6 +53,7 @@ pub fn build_window(application: &gtk::Application) {
         let search_phrase = search_box.get_text().expect("Couldn't get text from search-box");
         let search_results = find_emojis(&emojis, search_phrase);
         println!("{:?}", search_results);
+        clear_grid(&result_grid);
         generate_emoji_view(search_results, &result_grid);
     });
 

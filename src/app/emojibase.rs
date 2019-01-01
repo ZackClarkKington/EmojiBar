@@ -29,7 +29,6 @@ pub fn find_emojis(emojis: &EmojiBase, search_phrase: String) -> Vec<String> {
 
 pub fn load_emojibase() -> EmojiBase{
   let contents = fs::read_to_string("emojis.json").expect("Unable to find emojis.json");
-  
   let emojibase_decoded = json::parse(&contents).unwrap();
   let mut _tags : HashMap<String, String> = HashMap::new();
   let mut _categories : HashMap<String, Vec<String>> = HashMap::new();
@@ -41,7 +40,6 @@ pub fn load_emojibase() -> EmojiBase{
         _tags.insert(key.to_string(), v.to_string());
       }
     }
-
     if property.0 == "categories" {
       for category in property.1.entries() {
         let key = category.0;
